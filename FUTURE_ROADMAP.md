@@ -1,7 +1,14 @@
 # Signchronicity Future Roadmap
 
+## Architectural Core Principles
+**Crucial Context:** Signchronicity is primarily a **user-held application** deployed directly on patient devices.
+- **Zero Integration:** It deliberately features *no integration* with the NHS Spine, EMIS, or any other central clinical system.
+- **Total Privacy:** The app stores *no* NHS numbers, and *no* diagnostic or medical data.
+- **Core Function:** It is strictly a standalone, local-first communication bridge.
+- **Fail-safes:** Dedicated clinical deployments will only exist as fail-safes to combat digital poverty and prevent discrimination.
+
 ## DTAC Compliance & Future Features
-This document outlines the planned future features and compliance steps for Signchronicity.
+This document outlines the planned future features and compliance steps for Signchronicity, guided by the principles above.
 
 ### 1. Onboarding Processes
 - **Implementation Placeholder:** Future pull requests will implement the fully developed onboarding screens.

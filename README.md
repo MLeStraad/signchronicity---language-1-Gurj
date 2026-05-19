@@ -5,11 +5,16 @@
 ## Project Vision
 To provide a professional, trustworthy communication bridge for non-English speaking patients that operates with **zero ongoing costs** and **total data privacy**. 
 
+**Crucial Context:** Signchronicity is primarily a **user-held application** deployed directly on patient devices.
+- It features **zero integration** with the NHS Spine, EMIS, or any other central clinical system.
+- It stores **no** NHS numbers, and **no** diagnostic or medical data.
+- Dedicated clinical deployments will only exist as fail-safes to combat digital poverty and prevent discrimination.
+
 ## Technical Architecture
 - **Local Inference Engine**: Powered by `@xenova/transformers`, running OpenAI's Whisper (STT) and Meta's NLLB (Translation) locally in the browser via WebAssembly and WebWorkers.
 - **Multimodal Interaction**: A hybrid engine that triggers high-quality pre-recorded localized video assets based on real-time English speech intent detection.
 - **Privacy First**: No patient audio or transcription data ever leaves the local device. No API keys or cloud services are required for the core translation pipeline.
-- **Standalone Philosophy**: Each language-specific version is a standalone PWA designed for dedicated clinical hardware or patient-held devices.
+- **Standalone Philosophy**: Each language-specific version is a standalone PWA designed primarily for patient-held devices.
 
 ## NHS Digital Standards
 - **Typography**: Rigidly adheres to the **Frutiger** font stack with Open Sans as the digital fallback.
