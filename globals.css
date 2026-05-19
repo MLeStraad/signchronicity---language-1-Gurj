@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Official NHS Identity HSL Colors */
+    --background: 192 18% 96%; /* NHS Pale Grey #F0F4F5 */
+    --foreground: 211 20% 20%; /* NHS Black #212b32 */
+    
+    --card: 0 0% 100%;
+    --card-foreground: 211 20% 20%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 211 20% 20%;
+    
+    --primary: 211 100% 36%; /* NHS Blue #005EB8 */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 192 18% 92%; /* NHS Light Grey #E8EDEE */
+    --secondary-foreground: 211 100% 36%;
+    
+    --muted: 192 18% 92%;
+    --muted-foreground: 211 20% 40%;
+    
+    --accent: 192 18% 94%;
+    --accent-foreground: 211 100% 36%;
+    
+    --destructive: 0 84% 47%; /* NHS Red #D4351C */
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 211 30% 85%;
+    --input: 211 30% 85%;
+    --ring: 211 100% 36%;
+    
+    --radius: 0rem; /* NHS elements are sharp and professional */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  
+  /* Standard NHS link styling */
+  a {
+    @apply text-primary underline hover:no-underline font-bold transition-colors;
+  }
+}
+
+/* NHS High Visibility Focus Ring - WCAG 2.2 compliant */
+.nhs-focus:focus-visible {
+  @apply outline-none ring-4 ring-offset-0 ring-[#FFEB3B] border-black;
+}
+
+/* NHS Button Active State */
+.nhs-button-active:active {
+  @apply transform translate-y-[2px] transition-transform;
+}
+
+/* Urgent Alert Animation - Clinical High Priority */
+@keyframes rapid-alert {
+  0% { background-color: #821111; color: white; }
+  50% { background-color: #FFEB3B; color: #212b32; }
+  100% { background-color: #821111; color: white; }
+}
+
+.animate-rapid-alert {
+  animation: rapid-alert 0.4s infinite;
+}
+
+/* Sound Wave Animation for Active Listening */
+@keyframes wave-grow {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(2.5); }
+}
+
+.animate-wave {
+  animation: wave-grow 1s infinite ease-in-out;
+}
+
+/* NHS Heading Styles */
+h1 { @apply text-4xl font-extrabold tracking-tight; }
+h2 { @apply text-3xl font-bold tracking-tight; }
+h3 { @apply text-2xl font-bold tracking-tight; }
+
+/* NHS Form Elements - Accessible sizing */
+input, select, textarea {
+  @apply min-h-[44px];
+}

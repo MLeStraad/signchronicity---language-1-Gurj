@@ -1,0 +1,30 @@
+
+{
+  "language": "gu",
+  "mappings": [
+    {
+      "intent": "greeting",
+      "english_patterns": ["hello", "good morning", "welcome"],
+      "video_url": "https://picsum.photos/seed/gu-hello/800/450",
+      "description": "Gujarati greeting"
+    },
+    {
+      "intent": "ask_name",
+      "english_patterns": ["name", "who are you", "identify"],
+      "video_url": "https://picsum.photos/seed/gu-name/800/450",
+      "description": "Receptionist asking for name"
+    },
+    {
+      "intent": "ask_dob",
+      "english_patterns": ["date of birth", "born", "birthday"],
+      "video_url": "https://picsum.photos/seed/gu-dob/800/450",
+      "description": "Receptionist asking for DOB"
+    },
+    {
+      "intent": "wait",
+      "english_patterns": ["sit down", "wait", "take a seat"],
+      "video_url": "https://picsum.photos/seed/gu-wait/800/450",
+      "description": "Instruction to wait"
+    }
+  ]
+}
