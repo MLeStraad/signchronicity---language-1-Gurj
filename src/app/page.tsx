@@ -1,52 +1,65 @@
-"use client";
+'use client';
 
-import { NHSHeader } from '@/components/NHSHeader';
-import { MenuButton } from '@/components/MenuButton';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { ChevronRight } from 'lucide-react';
+import { useOnboardingStore } from '@/store/onboardingStore';
+import { PinUnlock } from '@/components/onboarding/PinUnlock';
+import { BiometricUnlock } from '@/components/onboarding/BiometricUnlock';
+import { Logo } from '@/components/Logo';
 
-export default function SettingsPage() {
+export default function SplashPage() {
   const router = useRouter();
+  const { hasCompletedOnboarding, securityPreference } = useOnboardingStore();
+  const [isClient, setIsClient] = useState(false);
+  const [showUnlock, setShowUnlock] = useState(false);
 
-  const options = [
-    { label: "Language settings", desc: "Select your preferred language" },
-    { label: "Accessibility", desc: "Change font size and high contrast" },
-    { label: "Notifications", desc: "Manage vibration and alert sounds" },
-    { label: "About Signchronicity", desc: "App version and terms" }
-  ];
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
+  useEffect(() => {
+    if (isClient) {
+      if (hasCompletedOnboarding) {
+        if (securityPreference === 'pin' || securityPreference === 'biometric') {
+          setShowUnlock(true);
+        } else {
+          router.push('/home');
+        }
+      }
+    }
+  }, [isClient, hasCompletedOnboarding, securityPreference, router]);
+
+  if (!isClient) {
+    return <SplashLayout onEnter={() => {}} showEnter={false} />;
+  }
+
+  if (hasCompletedOnboarding && showUnlock) {
+    if (securityPreference === 'pin') {
+      return <PinUnlock onSuccess={() => router.push('/home')} />;
+    } else if (securityPreference === 'biometric') {
+      return <BiometricUnlock onSuccess={() => router.push('/home')} />;
+    }
+  }
+
+  return <SplashLayout onEnter={() => router.push('/onboarding/theme')} showEnter={!hasCompletedOnboarding} />;
+}
+
+function SplashLayout({ onEnter, showEnter }: { onEnter: () => void, showEnter: boolean }) {
   return (
-    <div className="flex-1 flex flex-col bg-[#D0D5DB] min-h-screen">
-      <NHSHeader />
-      <main className="flex-1 max-w-md w-full mx-auto flex flex-col">
-        <div className="p-4 py-8 bg-white border-b-4 border-[#005EB8]">
-           <h1 className="text-4xl font-extrabold text-[#005EB8] tracking-tight">Settings</h1>
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6 animate-in fade-in duration-500 max-w-md mx-auto sm:border-x shadow-xl">
+      <div className="flex-1 flex flex-col items-center justify-center w-full space-y-12">
+        <div className="w-full flex justify-center px-4 transform scale-75 sm:scale-100">
+          <Logo />
         </div>
-
-        <div className="flex flex-col flex-1">
-          {options.map((opt, i) => (
-            <MenuButton 
-              key={i} 
-              href="#"
-              description={opt.desc}
-              className="border-b border-gray-200"
-            >
-              {opt.label}
-            </MenuButton>
-          ))}
-        </div>
-
-        <footer className="mt-auto p-6">
-          <Button 
-            onClick={() => router.back()} 
-            className="w-full bg-[#005EB8] hover:bg-[#003087] text-white rounded-none py-6 h-auto text-2xl font-bold flex items-center justify-between px-8 border-b-4 border-[#003087] nhs-focus"
-          >
-            <span>Back</span>
-            <ChevronRight className="w-12 h-12" />
-          </Button>
-        </footer>
-      </main>
+        {showEnter && (
+           <button
+             onClick={onEnter}
+             className="px-8 py-3 bg-[#1D5EBC] text-white text-xl font-bold rounded shadow-md hover:bg-blue-800 transition-colors"
+           >
+             Enter
+           </button>
+        )}
+      </div>
     </div>
   );
 }
