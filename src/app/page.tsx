@@ -3,9 +3,8 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useOnboardingStore } from '@/store/onboardingStore';
+import { Card } from '@/components/ui/card';
 import { PinUnlock } from '@/components/onboarding/PinUnlock';
-import { BiometricUnlock } from '@/components/onboarding/BiometricUnlock';
-import { Logo } from '@/components/Logo';
 
 export default function SplashPage() {
   const router = useRouter();
@@ -19,9 +18,22 @@ export default function SplashPage() {
 
   useEffect(() => {
     if (isClient) {
-      if (hasCompletedOnboarding) {
-        if (securityPreference === 'pin' || securityPreference === 'biometric') {
-          setShowUnlock(true);
+      if (!hasCompletedOnboarding) {
+        // Redirect to onboarding if not completed
+        const timer = setTimeout(() => {
+          router.push('/onboarding');
+        }, 2000);
+        return () => clearTimeout(timer);
+      } else {
+        // User has completed onboarding, show unlock or redirect to home
+        if (securityPreference === 'pin') {
+          const timer = setTimeout(() => {
+            setShowUnlock(true);
+          }, 1500);
+          return () => clearTimeout(timer);
+        } else if (securityPreference === 'biometric') {
+           // TODO: Implement biometric prompt
+           router.push('/home');
         } else {
           router.push('/home');
         }
@@ -30,35 +42,40 @@ export default function SplashPage() {
   }, [isClient, hasCompletedOnboarding, securityPreference, router]);
 
   if (!isClient) {
-    return <SplashLayout onEnter={() => {}} showEnter={false} />;
+    return <SplashLayout />; // Server-side render safe state
   }
 
-  if (hasCompletedOnboarding && showUnlock) {
-    if (securityPreference === 'pin') {
-      return <PinUnlock onSuccess={() => router.push('/home')} />;
-    } else if (securityPreference === 'biometric') {
-      return <BiometricUnlock onSuccess={() => router.push('/home')} />;
-    }
+  if (showUnlock && securityPreference === 'pin') {
+    return <PinUnlock onSuccess={() => router.push('/home')} />;
   }
 
-  return <SplashLayout onEnter={() => router.push('/onboarding/theme')} showEnter={!hasCompletedOnboarding} />;
+  return <SplashLayout />;
 }
 
-function SplashLayout({ onEnter, showEnter }: { onEnter: () => void, showEnter: boolean }) {
+function SplashLayout() {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6 animate-in fade-in duration-500 max-w-md mx-auto sm:border-x shadow-xl">
-      <div className="flex-1 flex flex-col items-center justify-center w-full space-y-12">
-        <div className="w-full flex justify-center px-4 transform scale-75 sm:scale-100">
-          <Logo />
+    <div className="min-h-screen bg-primary flex flex-col items-center justify-center text-white p-6 animate-in fade-in duration-500">
+      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-sm space-y-8">
+
+        {/* Logo Icon */}
+        <div className="w-32 h-32 flex items-center justify-center">
+            {/* Using text for S instead of SVG for simplicity in mockup, actual implementation would use SVG */}
+            <div className="text-6xl font-bold flex items-center relative">
+                S
+                <div className="flex space-x-1 ml-2">
+                    <div className="w-2 h-6 bg-white rounded-full animate-wave" style={{animationDelay: '0ms'}}></div>
+                    <div className="w-2 h-10 bg-white rounded-full animate-wave" style={{animationDelay: '100ms'}}></div>
+                    <div className="w-2 h-14 bg-white rounded-full animate-wave" style={{animationDelay: '200ms'}}></div>
+                </div>
+            </div>
         </div>
-        {showEnter && (
-           <button
-             onClick={onEnter}
-             className="px-8 py-3 bg-[#1D5EBC] text-white text-xl font-bold rounded shadow-md hover:bg-blue-800 transition-colors"
-           >
-             Enter
-           </button>
-        )}
+
+        {/* Wordmark */}
+        <div className="text-center space-y-2 w-full">
+          <h1 className="text-4xl font-extrabold tracking-tight lowercase">signchronicity</h1>
+          <div className="w-full h-px bg-white/50 my-2"></div>
+          <p className="text-sm font-semibold tracking-wide">your health. your words. your way.</p>
+        </div>
       </div>
     </div>
   );

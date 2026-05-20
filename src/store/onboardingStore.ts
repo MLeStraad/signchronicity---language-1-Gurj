@@ -5,26 +5,16 @@ interface OnboardingState {
   hasCompletedOnboarding: boolean;
   theme: 'light' | 'dark' | 'system';
   agreedToTerms: boolean;
-  gpDetails: {
+  personalDetails: {
     name: string;
-    practiceName: string;
+    dob: string;
     address: string;
     telephone: string;
   };
-  personalDetails: {
-    title: string;
-    firstName: string;
-    lastName: string;
-    preferredName: string;
-    dobDay: string;
-    dobMonth: string;
-    dobYear: string;
-    addressLine1: string;
-    addressLine2: string;
-    postcode: string;
-    telephone: string;
+  gpDetails: {
+    name: string;
+    address: string;
   };
-  translator: string | null;
   securityPreference: 'pin' | 'biometric' | 'none';
   pinHash: string | null;
 
@@ -34,7 +24,6 @@ interface OnboardingState {
   setAgreedToTerms: (agreed: boolean) => void;
   setPersonalDetails: (details: Partial<OnboardingState['personalDetails']>) => void;
   setGpDetails: (details: Partial<OnboardingState['gpDetails']>) => void;
-  setTranslator: (translator: string) => void;
   setSecurityPreference: (pref: 'pin' | 'biometric' | 'none', pinHash?: string) => void;
   resetOnboarding: () => void;
 }
@@ -44,25 +33,15 @@ const initialState = {
   theme: 'system' as const,
   agreedToTerms: false,
   personalDetails: {
-    title: '',
-    firstName: '',
-    lastName: '',
-    preferredName: '',
-    dobDay: '',
-    dobMonth: '',
-    dobYear: '',
-    addressLine1: '',
-    addressLine2: '',
-    postcode: '',
+    name: '',
+    dob: '',
+    address: '',
     telephone: '',
   },
   gpDetails: {
     name: '',
-    practiceName: '',
     address: '',
-    telephone: '',
   },
-  translator: null,
   securityPreference: 'none' as const,
   pinHash: null,
 };
@@ -82,7 +61,6 @@ export const useOnboardingStore = create<OnboardingState>()(
         set((state) => ({
           gpDetails: { ...state.gpDetails, ...details }
         })),
-      setTranslator: (translator) => set({ translator }),
       setSecurityPreference: (securityPreference, pinHash = null) =>
         set({ securityPreference, pinHash }),
       resetOnboarding: () => set(initialState),
