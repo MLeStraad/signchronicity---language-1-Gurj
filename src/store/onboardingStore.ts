@@ -16,7 +16,7 @@ interface OnboardingState {
     address: string;
   };
   securityPreference: 'pin' | 'biometric' | 'none';
-  pinHash: string | null;
+  pinHash: string | undefined;
 
   // Actions
   completeOnboarding: () => void;
@@ -43,7 +43,7 @@ const initialState = {
     address: '',
   },
   securityPreference: 'none' as const,
-  pinHash: null,
+  pinHash: undefined,
 };
 
 export const useOnboardingStore = create<OnboardingState>()(
@@ -61,7 +61,7 @@ export const useOnboardingStore = create<OnboardingState>()(
         set((state) => ({
           gpDetails: { ...state.gpDetails, ...details }
         })),
-      setSecurityPreference: (securityPreference, pinHash = null) =>
+      setSecurityPreference: (securityPreference, pinHash = undefined) =>
         set({ securityPreference, pinHash }),
       resetOnboarding: () => set(initialState),
     }),
