@@ -26,45 +26,41 @@ To provide a professional, trustworthy communication bridge for non-English spea
 ### 1. Home Screen (`/`)
 The primary navigation hub. Features high-contrast "Menu Buttons" for clinic check-ins and app settings. Designed for one-handed thumb interaction.
 
-### 2. Video Onboarding (`/video`)
-A critical 32-second instructional video. Designed to be shown to NHS staff to explain the app's function. Includes clinical safety notes and interaction guidelines.
+### 2. Patient Check-in (`/home/patient-check-in`)
+After selecting a service, the patient is presented with a clear, full-screen display of their name and appointment details. This screen is shown to the receptionist to facilitate a smooth, non-verbal check-in.
 
-### 3. Service Check-in (`/service/[type]`)
-The multimodal active listening screen.
+### 3. Waiting Screen (`/waiting`)
+A simple, calming screen displayed while the patient waits to be called for their appointment. It provides a clear visual cue that the check-in process is complete.
+
+### 4. Consultation Menu (e.g., `/home/gp-appointment`)
+Once called, the patient navigates to this menu. It allows them to select the specific reason for their visit (e.g., "A new health issue," "Medication query"). This screen also provides an optional link to the staff onboarding video.
+
+### 5. Video Onboarding for Staff (`/video`)
+A critical 32-second instructional video. It's designed to be shown to NHS staff before the consultation to quickly explain the app's function, ensuring a smooth interaction. Includes clinical safety notes and interaction guidelines.
+
+### 6. Translation Screen (`/service/[type]`)
+The core multimodal translation engine.
 - **Staff Side**: Listens to English speech and displays corresponding localized (e.g., Gujarati) video clips.
 - **Patient Side**: Displays the signer/speaker and provides a "Please say again" button.
 - **Verified Response**: Patients record a response, verify the transcribed text, and send it as an English voice reply.
 
-### 4. Waiting Area
-A passive listening state that monitors for the patient's name. Features an "Active Listening" toggle and a high-priority "Rapid Alert" animation (flashing yellow/red) when triggered.
-
-### 5. Appointment Translation (`/translate`)
-The deep consultation interface. Supports long-form transcription and dual-camera feed visualization to maintain eye contact between clinician and patient while the "digital interpreter" works.
-
-### 6. Safety Hub (`/safety`)
+### 7. Safety Hub (`/safety`)
 Accessible via the persistent red "Stop!" button. Provides:
 - **Immediate Intervention**: Videos for staff explaining why the consultation has stopped.
 - **Advocacy**: Localized help for HealthWatch and the Care Quality Commission (CQC).
 - **Complaints**: A step-by-step guide to the NHS formal complaints process.
 
+### 8. Settings (`/settings`)
+Allows the user to manage their personal information (name, date of birth) and security preferences (PIN, biometrics) locally on their device.
+
 ## Functional Flows
 
 ### The "Arrival" Flow
 1. Patient arrives at the clinic and selects their service on the **Home Screen**.
-2. They use the **Check-in Translation** to confirm their name and details with the receptionist.
+2. They use the **Patient Check-in** screen to confirm their name and details with the receptionist.
 3. Upon completion, they transition to the **Waiting Screen**.
 
 ### The "Consultation" Flow
 1. The **Waiting Screen** alerts the patient when their name is called.
 2. The patient selects their appointment type from the **Consultation Menu**.
 3. They enter the **Translation Screen** for the duration of the clinical encounter.
-
-### The "Safety" Flow
-1. If at any point the patient feels unsafe or misunderstood, they hit the **"Stop!" button**.
-2. They are taken to the **Safety Hub** where they can play a video for the clinician explaining the need for a face-to-face interpreter or ending the session safely.
-
-## Tech Stack
-- **Framework**: Next.js 15 (App Router)
-- **Styling**: Tailwind CSS & ShadCN UI (Rigid NHS Theme)
-- **AI/ML**: Transformers.js (Local Wasm Inference)
-- **Icons**: Lucide React

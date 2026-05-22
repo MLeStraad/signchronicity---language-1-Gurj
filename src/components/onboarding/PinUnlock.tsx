@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useOnboardingStore } from '@/store/onboardingStore';
-import { Button } from '@/components/ui/button';
 
 export function PinUnlock({ onSuccess }: { onSuccess: () => void }) {
   const [pin, setPin] = useState('');
@@ -29,7 +29,6 @@ export function PinUnlock({ onSuccess }: { onSuccess: () => void }) {
   const verifyPin = async (enteredPin: string) => {
     // In a real app, hash the entered pin and compare with storedPinHash
     // For this mockup, we'll assume a simple hash or plain match if no crypto is available
-    // A robust solution uses subtlecrypto
     const isValid = enteredPin === storedPinHash; // Simplified for MVP
 
     if (isValid) {
@@ -46,14 +45,12 @@ export function PinUnlock({ onSuccess }: { onSuccess: () => void }) {
 
         {/* Logo Header */}
         <div className="flex flex-col items-center space-y-4">
-          <div className="text-4xl font-bold flex items-center relative">
-              S
-              <div className="flex space-x-1 ml-2">
-                  <div className="w-1.5 h-4 bg-white rounded-full"></div>
-                  <div className="w-1.5 h-6 bg-white rounded-full"></div>
-                  <div className="w-1.5 h-8 bg-white rounded-full"></div>
-              </div>
-          </div>
+            <Image
+                src="/images/logo.png"
+                alt="Signchronicity Logo"
+                width={80}
+                height={80}
+            />
           <div className="text-center w-full">
             <h1 className="text-3xl font-extrabold tracking-tight lowercase">signchronicity</h1>
             <div className="w-full h-px bg-white/50 my-1"></div>
