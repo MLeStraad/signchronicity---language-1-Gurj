@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
 
-export default function OnboardingPage() {
+export default function OnboardingIndex() {
   redirect('/onboarding/splash');
 }
