@@ -40,7 +40,7 @@ const UnlockPage = () => {
 
         <div className="flex-1 flex flex-col items-center justify-center w-full max-w-sm space-y-8">
             <Image
-                src="/public/fingerprint.svg"
+                src="/fingerprint.svg"
                 alt="Fingerprint Icon"
                 width={80}
                 height={80}
