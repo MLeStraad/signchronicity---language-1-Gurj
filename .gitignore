@@ -59,3 +59,8 @@ report.md
 typecheck_output.txt
 lint_output.txt
 build_output.txt
+.next
+node_modules
+
+.next
+node_modules

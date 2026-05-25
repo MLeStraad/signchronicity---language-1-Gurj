@@ -1,0 +1,11 @@
+--- SubMenuScreen.tsx
++++ SubMenuScreen.tsx
+@@ -73,7 +73,7 @@
+             />
+             <MenuItem
+               title="Make a complaint"
+-              onClick={() => console.log("Navigate to Make Complaint")}
++              onClick={() => router.push('/home/safety')}
+             />
+             <MenuItem
+               title="About this App"
