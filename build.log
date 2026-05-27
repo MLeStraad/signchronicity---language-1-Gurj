@@ -12,7 +12,7 @@
 > [PWA] Service worker: /app/public/sw.js
 > [PWA]   url: /sw.js
 > [PWA]   scope: /
- ✓ Compiled successfully in 5.9s
+ ✓ Compiled successfully in 10.0s
    Skipping validation of types
    Skipping linting
    Collecting page data ...

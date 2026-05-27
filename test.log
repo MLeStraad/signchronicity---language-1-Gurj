@@ -1,0 +1,13 @@
+
+> nextn@0.1.0 test
+> jest
+
+PASS src/__tests__/components/button.test.tsx
+  Button
+    ✓ renders correctly (120 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.568 s
+Ran all test suites.
